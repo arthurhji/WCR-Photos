@@ -1,0 +1,113 @@
+/*
+ID: jiarthu1
+TASK: namenum
+LANG: JAVA
+*/
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
+public class namenum {
+
+	private FileInputStream is, isDict;
+	private BufferedReader br, brDict;
+	private FileOutputStream os;
+	private PrintWriter pw;
+	private String name;
+	private ArrayList<String> arr;
+	private String line;
+	
+	public static void main(String[] args) throws IOException {
+		namenum num = new namenum();
+		num.start();
+	}
+
+	public namenum() throws FileNotFoundException{
+		is = new FileInputStream(new File("namenum.in"));
+		br= new BufferedReader(new InputStreamReader(is));
+		isDict = new FileInputStream(new File("dict.txt"));
+		brDict= new BufferedReader(new InputStreamReader(isDict));
+		arr = new ArrayList<String>();
+		os = new FileOutputStream(new File("namenum.out"));
+		pw= new PrintWriter(new OutputStreamWriter(os));
+		
+	}
+	
+	public void start() throws IOException{
+		name = br.readLine();
+		line = brDict.readLine();
+		recurse(name,0,new String());
+		
+		for(int i = 0;i<arr.size();i++){
+			pw.println(arr.get(i));
+		}
+		if(arr.isEmpty())pw.println("NONE");
+		pw.close();
+	}
+	
+	public void recurse(String name, int index, String curr) throws IOException{
+		if(curr.length()  == name.length()){
+			while(line != null && line.compareTo(curr)<0){
+				line = brDict.readLine();
+			}
+			if(line.compareTo(curr)==0)arr.add(curr);
+			
+		}else{
+			char c = name.charAt(index);
+			switch(c){
+				case '2':
+					recurse(name, index+1, curr+"A");
+					recurse(name, index+1, curr+"B");
+					recurse(name, index+1, curr+"C");
+					break;
+				case '3':
+					recurse(name, index+1, curr+"D");
+					recurse(name, index+1, curr+"E");
+					recurse(name, index+1, curr+"F");
+					break;
+				case '4':
+					recurse(name, index+1, curr+"G");
+					recurse(name, index+1, curr+"H");
+					recurse(name, index+1, curr+"I");
+					break;
+				case '5':
+					recurse(name, index+1, curr+"J");
+					recurse(name, index+1, curr+"K");
+					recurse(name, index+1, curr+"L");
+					break;
+				case '6':
+					recurse(name, index+1, curr+"M");
+					recurse(name, index+1, curr+"N");
+					recurse(name, index+1, curr+"O");
+					break;
+				case '7':
+					recurse(name, index+1, curr+"P");
+					recurse(name, index+1, curr+"R");
+					recurse(name, index+1, curr+"S");
+					break;
+				case '8':
+					recurse(name, index+1, curr+"T");
+					recurse(name, index+1, curr+"U");
+					recurse(name, index+1, curr+"V");
+					break;
+				case '9':
+					recurse(name, index+1, curr+"W");
+					recurse(name, index+1, curr+"X");
+					recurse(name, index+1, curr+"Y");
+					break;
+					
+				default:
+					break;
+			}
+			
+		}
+	}
+}
